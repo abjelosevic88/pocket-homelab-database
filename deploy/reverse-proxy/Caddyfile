@@ -1,0 +1,10 @@
+# Pocket Database behind Caddy. Homepage widgets and linked apps send their own
+# bearer token to /api/*. Uploads of SQLite files can be large.
+database.example.com {
+	request_body {
+		max_size 1GB
+	}
+	reverse_proxy 127.0.0.1:8080 {
+		flush_interval -1
+	}
+}

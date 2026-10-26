@@ -1,0 +1,25 @@
+[Unit]
+Description=Pocket Database — every database on your server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=pocket-database
+Group=pocket-database
+ExecStart=/usr/local/bin/pocket-database
+Environment=DATA_DIR=/var/lib/pocket-database
+Environment=PORT=8080
+Environment=BASE_URL=https://database.example.com
+Environment=SECURE_COOKIES=true
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/pocket-database
+# discovery and pausing apps: the docker group and the socket
+SupplementaryGroups=docker
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
