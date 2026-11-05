@@ -239,7 +239,7 @@ tr.click { cursor: pointer; }
 .dgrid td.rn { display: table-cell; }
 .dgrid .rn input { margin: 0 6px 0 0; vertical-align: -2px; }
 .rn-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--faint); cursor: pointer; }
-.rn-btn:hover { color: var(--accent-ink); text-decoration: underline; }
+.rn-btn:hover { color: var(--accent-ink); }
 .null { color: var(--faint); font-style: italic; font-size: 12px; }
 .bin { color: var(--muted); font-size: 12px; font-family: var(--mono); }
 .bool.true { color: var(--success); } .bool.false { color: var(--muted); }
