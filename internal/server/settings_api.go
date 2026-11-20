@@ -390,6 +390,9 @@ func (s *Server) handleImportJSON(w http.ResponseWriter, r *http.Request) {
 		c := &store.Connection{Source: "import", SizeBytes: -1}
 		in := connInput{Name: ec.Name, Engine: ec.Engine, Host: ec.Host, Port: ec.Port, Username: ec.Username, Database: ec.Database, SSLMode: ec.SSLMode,
 			Path: ec.Path, Container: ec.Container, Group: ec.Group, Color: ec.Color, Notes: ec.Notes, AllowWrites: ec.AllowWrites, Favorite: ec.Favorite, Monitor: ec.Monitor}
+		if linkApp(ctx) != "" {
+			in.AllowWrites = false // brought in by Pocket Move: starts read-only, like a discovered one
+		}
 		if err := s.apply(ctx, u, c, in, nil); err != nil {
 			counts["skipped"]++
 			continue

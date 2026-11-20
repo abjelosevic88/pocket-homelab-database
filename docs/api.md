@@ -19,10 +19,11 @@ Everything the app does is a JSON API under `/api/v1`. Authenticate with a sessi
 | `GET /connections/{id}/safety`, `POST /connections/{id}/pause` (`start`/`finish`/`extend`), `POST /connections/{id}/snapshots`, `POST /snapshots/{id}/restore`, `GET /snapshots/{id}/download` | Changing live SQLite files safely |
 | `GET /discover`, `POST /discover/add` | Databases on this server (admins) |
 | `GET/DELETE /history`, `GET/POST /saved`, `PUT/DELETE /saved/{id}`, `GET /activity` | History, saved queries, the change log |
+| `GET /export.json`, `GET /export.csv`, `POST /import` | Your connections (no passwords) and saved queries out; the export back in (adds, skips what you have) |
 | `POST /ai/sql` | `{"connection_id","db","mode":"write\|explain\|fix","prompt","sql","error"}` — never runs anything |
 
 Changes need “Allow changes” on the connection (`409 {"code":"writes_off"}` otherwise). A SQLite file a running container uses answers `409 {"code":"needs_pause"}` until it is paused.
 
 ## Pocket Core
 
-Offers `databases:read` (overview, connections without addresses or paths, structure, sizes) and `databases:query` (rows, keys and read-only queries). A linked app can never change anything. Uses Pocket AI. Events: `database.down`, `database.up`, `database.changed`, `database.restored`.
+Offers `databases:read` (overview, connections without addresses or paths, structure, sizes) and `databases:query` (rows, keys and read-only queries). A linked app can never change a database. Pocket Move can copy your connections (without passwords) and saved queries out and bring them in (`move:export` / `move:import`, described at `GET /pocket/portable`); connections it brings in start read-only. Uses Pocket AI. Events: `database.down`, `database.up`, `database.changed`, `database.restored`.
